@@ -6,38 +6,34 @@
         v-for="tweet in store.tweetData.slice(startingTweetIndex, endingTweetIndex)"
         :key="tweet.tweet_id"
       >
-  <blockquote
-    class="twitter-tweet"
+        <blockquote
+          class="twitter-tweet"
           width="300"
-  >
-    <a :href="`https://twitter.com/twitter/status/${tweet.tweet_id}`"></a> 
-  </blockquote>
+        >
+          <a :href="`https://twitter.com/twitter/status/${tweet.tweet_id}`"></a> 
+        </blockquote>
       </v-col>
     </v-row>
 
+    <v-pagination
+      v-model="pageNumber"
+      :length="numberOfTweets / TWEETS_PER_PAGE"
+      class="mb-12"
+    ></v-pagination>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUpdated, ref } from 'vue';
+import { computed, onMounted, onUpdated, ref, watch } from 'vue';
 import { useDataStore } from '../stores/data';
 
 const store = useDataStore();
 
-const scriptBlock = ref<Element | null>(null);
-
-function reloadTweets() {
-  if (scriptBlock.value !== null) {
-    // Clear out old scripts
-    scriptBlock.value.innerHTML = '';
-
-    const script = document.createElement('script');
-    script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-    script.setAttribute('charset', 'utf-8');
-
-    scriptBlock.value.appendChild(script);
-  }
-}
+const pageNumber = ref(0);
+const numberOfTweets = computed(() => store.tweetData.length);
+const TWEETS_PER_PAGE = 12;
+const startingTweetIndex = computed(() => pageNumber.value * TWEETS_PER_PAGE)
+const endingTweetIndex = computed(() => startingTweetIndex.value + TWEETS_PER_PAGE);
 
 onMounted(() => {
   twttr.widgets.load()
@@ -45,6 +41,8 @@ onMounted(() => {
 onUpdated(() => {
   twttr.widgets.load()
 });
+watch(pageNumber, () => {
+  twttr.widgets.load()
 });
 </script>
 
