@@ -1,16 +1,25 @@
 <template>
+  <div id="tweet-gallery">
+    <v-row class="px-6">
+      <v-col
+        cols="2"
+        v-for="tweet in store.tweetData.slice(startingTweetIndex, endingTweetIndex)"
+        :key="tweet.tweet_id"
+      >
   <blockquote
-    v-for="tweet in store.tweetData.slice(0, 10)"
     class="twitter-tweet"
+          width="300"
   >
     <a :href="`https://twitter.com/twitter/status/${tweet.tweet_id}`"></a> 
   </blockquote>
+      </v-col>
+    </v-row>
 
-  <div ref="scriptBlock"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue';
 import { useDataStore } from '../stores/data';
 
 const store = useDataStore();
@@ -31,7 +40,11 @@ function reloadTweets() {
 }
 
 onMounted(() => {
-  reloadTweets();
+  twttr.widgets.load()
+});
+onUpdated(() => {
+  twttr.widgets.load()
+});
 });
 </script>
 
