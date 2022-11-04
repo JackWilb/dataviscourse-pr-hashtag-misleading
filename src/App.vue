@@ -5,9 +5,9 @@
     </v-app-bar>
 
     <v-main>
-      <OverviewTable />
-      <UpSet />
-      <TweetGallery />
+      <OverviewTable v-if="store.tweetData.length > 0" />
+      <UpSet v-if="store.tweetData.length > 0" />
+      <TweetGallery v-if="store.tweetData.length > 0" />
     </v-main>
   </v-app>
 </template>
@@ -16,6 +16,11 @@
 import TweetGallery from './components/TweetGallery.vue';
 import UpSet from './components/UpSet.vue';
 import OverviewTable from './components/OverviewTable.vue';
+import { useDataStore } from './stores/data';
+
+const store = useDataStore();
+store.getTweetData();
+
 </script>
 
 <style scoped>
