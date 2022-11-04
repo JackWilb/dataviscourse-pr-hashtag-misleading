@@ -31,7 +31,7 @@ function reloadTweets() {
 }
 
 onMounted(() => {
-  reloadTweets
+  reloadTweets();
 });
 </script>
 
