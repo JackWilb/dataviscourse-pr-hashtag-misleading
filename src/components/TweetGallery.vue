@@ -29,12 +29,14 @@ import { useDataStore } from '../stores/data';
 
 const store = useDataStore();
 
-const pageNumber = ref(0);
+// Pagination variables
+const pageNumber = ref(1);
 const numberOfTweets = computed(() => store.tweetData.length);
 const TWEETS_PER_PAGE = 12;
-const startingTweetIndex = computed(() => pageNumber.value * TWEETS_PER_PAGE)
+const startingTweetIndex = computed(() => (pageNumber.value - 1) * TWEETS_PER_PAGE)
 const endingTweetIndex = computed(() => startingTweetIndex.value + TWEETS_PER_PAGE);
 
+// Functions to reload the tweet gallery as the DOM is updated
 onMounted(() => {
   twttr.widgets.load()
 });
@@ -42,6 +44,7 @@ onUpdated(() => {
   twttr.widgets.load()
 });
 watch(pageNumber, () => {
+  console.log(pageNumber);
   twttr.widgets.load()
 });
 </script>
