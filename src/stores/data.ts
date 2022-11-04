@@ -7,7 +7,7 @@ export const useDataStore = defineStore('data', () => {
   const tweetData = ref<Tweet[]>([]);
   
   async function getTweetData() {
-    tweetData.value = await csv('public/tweet_data.csv') as any[];
+    tweetData.value = await csv('tweet_data.csv') as any[];
   }
 
   return { tweetData, getTweetData }
