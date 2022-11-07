@@ -1,5 +1,4 @@
 <template>
-  UpSet
 </template>
 
 <script setup lang="ts">
