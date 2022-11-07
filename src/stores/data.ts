@@ -85,6 +85,7 @@ export const useDataStore = defineStore('data', () => {
       'Tweet text alt',
     ];
 
+    // Fill in table rows
     const tableRows: { [key: string]: RowData } = {};
 
     rowLabels.forEach((rowLabel) => {
@@ -104,7 +105,18 @@ export const useDataStore = defineStore('data', () => {
       tableRows[rowLabel] = newRowData;
     });
 
-    return tableRows;
+    // Fill in table totals
+    const tableTotals: { [key: string]: Number } = {};
+
+    sentimentTypes.forEach((sentimentType) => {
+      tableTotals[sentimentType] = tweetData
+        .value
+        .filter((tweet) => tweet[sentimentType])
+        .length
+    });
+
+    // Return
+    return { tableRows, tableTotals };
   });
 
   return { tweetData, getTweetData, tableData }
