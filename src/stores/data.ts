@@ -24,6 +24,15 @@ export const useDataStore = defineStore('data', () => {
       'Added annotation support': row['Added annotation support'] === 'True',
       'Added annotation oppose': row['Added annotation oppose'] === 'True',
       'Added annotation alt': row['Added annotation alt'] === 'True',
+      'Use of annotations on chart': 
+        (row['Native annotation neutral'] === 'True') || 
+        (row['Native annotation support'] === 'True') || 
+        (row['Native annotation oppose'] === 'True') ||
+        (row['Native annotation alt'] === 'True') || 
+        (row['Added annotation neutral'] === 'True') ||
+        (row['Added annotation support'] === 'True') ||
+        (row['Added annotation oppose'] === 'True') ||
+        (row['Added annotation alt'] === 'True'),
       'Tweet text neutral': row['Tweet text neutral'] === 'True',
       'Tweet text support': row['Tweet text support'] === 'True',
       'Tweet text oppose': row['Tweet text oppose'] === 'True',
@@ -47,12 +56,7 @@ export const useDataStore = defineStore('data', () => {
 
   const tableData = computed(() => {
     const rowLabels: RowLabelOptions[] = [
-      'Dual axis',
-      'Value as area/volume',
-      'Inverted axis',
-      'Uneven binning',
-      'Unclear encoding',
-      'Inappropriate encoding',
+      // Reasoning errors
       'Cherry-picking',
       'Setting an arbitrary threshold',
       'Causal inference',
@@ -60,6 +64,18 @@ export const useDataStore = defineStore('data', () => {
       'Failure to account for statistical nuance',
       'Misrepresentation of scientific studies',
       'Incorrect reading of chart',
+      // Misc construction
+      'Use of annotations on chart',
+      'Source screenshot static',
+      'Source screenshot dashboard',
+      // Design violations
+      'Truncated axis',
+      'Dual axis',
+      'Value as area/volume',
+      'Inverted axis',
+      'Uneven binning',
+      'Unclear encoding',
+      'Inappropriate encoding',
     ];
 
     const sentimentTypes: SentimentOptions[] = [

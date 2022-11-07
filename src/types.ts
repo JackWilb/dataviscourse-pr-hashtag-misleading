@@ -15,6 +15,7 @@ export interface Tweet {
   'Added annotation support': boolean;
   'Added annotation oppose': boolean;
   'Added annotation alt': boolean;
+  'Use of annotations on chart': boolean;
   'Tweet text neutral': boolean;
   'Tweet text support': boolean;
   'Tweet text oppose': boolean;
@@ -43,19 +44,26 @@ export interface RowData {
 }
 
 export type RowLabelOptions = 
-  'Dual axis' 
-  | 'Value as area/volume'
-  | 'Inverted axis'
-  | 'Uneven binning'
-  | 'Unclear encoding'
-  | 'Inappropriate encoding'
-  | 'Cherry-picking'
+  // Reasoning errors
+  'Cherry-picking'
   | 'Setting an arbitrary threshold'
   | 'Causal inference'
   | 'Issues with data validity'
   | 'Failure to account for statistical nuance'
   | 'Misrepresentation of scientific studies'
-  | 'Incorrect reading of chart';
+  | 'Incorrect reading of chart'
+  // Misc construction
+  | 'Use of annotations on chart'
+  | 'Source screenshot static'
+  | 'Source screenshot dashboard'
+  // Design violations
+  | 'Truncated axis'
+  | 'Dual axis' 
+  | 'Value as area/volume'
+  | 'Inverted axis'
+  | 'Uneven binning'
+  | 'Unclear encoding'
+  | 'Inappropriate encoding';
 
 export type SentimentOptions = 
   'Tweet text oppose'
