@@ -106,7 +106,7 @@ export const useDataStore = defineStore('data', () => {
     });
 
     // Fill in table totals
-    const tableTotals: { [key: string]: Number } = {};
+    const tableTotals: { [key: string]: number } = {};
 
     sentimentTypes.forEach((sentimentType) => {
       tableTotals[sentimentType] = tweetData
