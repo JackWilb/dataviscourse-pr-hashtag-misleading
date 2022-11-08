@@ -67,7 +67,7 @@ table#overviewTable {
   border: 1px solid lightgray;
   border-radius: 15px;
   padding: 15px;
-  margin: 10px 10px;
+  margin: 25px 25px;
 }
 
 th {
