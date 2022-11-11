@@ -32,6 +32,10 @@ Another important finding and a promising avenue for future research is the fact
 
 # Design Evolution
 
+Original prototypes describe 3 coordinated views of the data. We proposed a few different options for each view: dotplot or heatmap for the overview table, UpSet plot or a PCA scatterplot for the second view, and an explicit gallery or just a details-on-demand interactivity with the scatterplot. For simplicity, we moved forward with an explicit gallery and an UpSet plot. We also decided to implement a dotplot table.
+
+![Image of the first three iterations of prototypes.](./images/prototype_sketches.png)
+
 At the milestone point of our project, our design is still evolving. For the overview table, we would like to be able to show both the absolute count of tweets in any given attribute, as well as the proportion of total tweets by sentiment subset. Because of this, we need to be able to visualize both the absolute value as well as the percentage value.
 
 ![Image of the first overview table design.](./images/table_dot.png)
