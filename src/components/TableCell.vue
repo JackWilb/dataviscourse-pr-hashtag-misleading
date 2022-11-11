@@ -34,7 +34,7 @@
     let xScale: ScaleLinear<number, number>;
     xScale = scaleLinear()
     .domain([0, props.total])
-    .range([margin, 150-2*margin]);
+    .range([margin, 150-margin]);
 
     const cx = computed(() => { return xScale(props.x) });
 
