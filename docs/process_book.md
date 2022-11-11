@@ -34,7 +34,7 @@ Another important finding and a promising avenue for future research is the fact
 
 At the milestone point of our project, our design is still evolving. For the overview table, we would like to be able to show both the absolute count of tweets in any given attribute, as well as the proportion of total tweets by sentiment subset. Because of this, we need to be able to visualize both the absolute value as well as the percentage value.
 
-![Image of the first overview table design.][./images/table_dot.png]
+![Image of the first overview table design.](./images/table_dot.png)
 
 # Implementation
 
