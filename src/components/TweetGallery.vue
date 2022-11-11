@@ -35,10 +35,10 @@
         :key="tweet.tweet_id"
       >
         <blockquote
-          class="twitter-tweet"
+          class="twitter-tweet unloaded"
           width="250"
         >
-          <a :href="`https://twitter.com/twitter/status/${tweet.tweet_id}`"></a> 
+          <a :href="`https://twitter.com/twitter/status/${tweet.tweet_id}`" disabled>loading</a> 
         </blockquote>
       </v-col>
     </v-row>
@@ -79,17 +79,53 @@ const startingTweetIndex = computed(() => (pageNumber.value - 1) * TWEETS_PER_PA
 const endingTweetIndex = computed(() => startingTweetIndex.value + TWEETS_PER_PAGE);
 
 // Functions to reload the tweet gallery as the DOM is updated
+const currentTimeout = ref(0);
+async function setTweetsAsMissing() {
+  const numberOfSecondsToWait = 60 * 1000;
+  currentTimeout.value = setTimeout(() => {
+    // Get all remaining "loading"
+    const unloadedTweets = document.getElementsByClassName('unloaded');
+    console.log(unloadedTweets);
+
+    if (unloadedTweets.length > 0) {
+      Array.from(unloadedTweets).forEach((unloadedTweet) => {
+        // Remove the loading a tag
+        if (unloadedTweet.firstChild !== null) {
+          unloadedTweet.removeChild(unloadedTweet.firstChild);
+        }
+
+        // Create a new html node saying that the tweet is missing
+        const newNode = document.createElement('div');
+        newNode.innerHTML = 'There was a network error while fetching the data. The tweet may have been deleted.';
+        newNode.style.marginTop = '10px';
+
+        // Add the new node to the unloaded tweet
+        unloadedTweet.appendChild(newNode);
+      })
+    }
+  }, numberOfSecondsToWait);
+}
 onMounted(() => {
-  twttr.widgets.load()
+  clearTimeout(currentTimeout.value);
+  twttr.widgets.load();
+  setTweetsAsMissing();
 });
 onUpdated(() => {
-  twttr.widgets.load()
+  clearTimeout(currentTimeout.value);
+  twttr.widgets.load();
+  setTweetsAsMissing();
 });
 watch(pageNumber, () => {
-  console.log(pageNumber);
-  twttr.widgets.load()
+  clearTimeout(currentTimeout.value);
+  twttr.widgets.load();
+  setTweetsAsMissing();
 });
 </script>
 
 <style scoped>
+a[disabled], a[disabled]:hover {
+  pointer-events: none;
+  text-decoration: none;
+  color: black;
+}
 </style>
