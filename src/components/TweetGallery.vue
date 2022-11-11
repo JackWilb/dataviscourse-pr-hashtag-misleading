@@ -3,7 +3,7 @@
     <v-row class="px-6">
       <v-col
         cols="2"
-        v-for="tweet in store.tweetData.slice(startingTweetIndex, endingTweetIndex)"
+        v-for="tweet in store.filteredTweetData.slice(startingTweetIndex, endingTweetIndex)"
         :key="tweet.tweet_id"
       >
         <blockquote
@@ -31,7 +31,7 @@ const store = useDataStore();
 
 // Pagination variables
 const pageNumber = ref(1);
-const numberOfTweets = computed(() => store.tweetData.length);
+const numberOfTweets = computed(() => store.filteredTweetData.length);
 const TWEETS_PER_PAGE = 12;
 const startingTweetIndex = computed(() => (pageNumber.value - 1) * TWEETS_PER_PAGE)
 const endingTweetIndex = computed(() => startingTweetIndex.value + TWEETS_PER_PAGE);

@@ -1,10 +1,33 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { csv } from 'd3';
-import { RowData, RowLabelOptions, SentimentOptions, Tweet } from '../types';
+import { Filter, RowData, RowLabelOptions, SentimentOptions, Tweet } from '../types';
 
 export const useDataStore = defineStore('data', () => {
+  const filters = ref<Filter>({ tweetIDs: [], clickedCategories: [] });
+  function updateFilters(type: 'tweetIDs' | 'clickedCategories', value: string) {
+    if (filters.value[type].includes(value)){
+      filters.value[type] = filters.value[type].filter((IDOrCategory) => IDOrCategory !== value)
+    } else {
+      filters.value[type].push(value);
+    }
+  }
+
   const tweetData = ref<Tweet[]>([]);
+  const filteredTweetData = computed(() => {
+    return tweetData.value
+      .filter((tweet) => (
+        // Include this tweet if there is no tweet filter, or the tweet is in filters
+        (
+          filters.value.tweetIDs.length === 0
+          || filters.value.tweetIDs.includes(tweet.tweet_id)
+        )
+        && (
+          filters.value.clickedCategories.length === 0
+          || filters.value.clickedCategories.map((clickedCategory) => tweet[clickedCategory as keyof Tweet]).every((value) => value === true)
+        )
+      ))
+  })
   
   async function getTweetData() {
     tweetData.value = (await csv('tweet_data.csv')).map((row): Tweet => ({
@@ -97,7 +120,7 @@ export const useDataStore = defineStore('data', () => {
       };
 
       sentimentTypes.forEach((sentimentType) => {
-        newRowData[sentimentType] = tweetData.value
+        newRowData[sentimentType] = filteredTweetData.value
           .filter((tweet) => tweet[rowLabel] && tweet[sentimentType])
           .length
       });
@@ -109,7 +132,7 @@ export const useDataStore = defineStore('data', () => {
     const tableTotals: { [key: string]: number } = {};
 
     sentimentTypes.forEach((sentimentType) => {
-      tableTotals[sentimentType] = tweetData
+      tableTotals[sentimentType] = filteredTweetData
         .value
         .filter((tweet) => tweet[sentimentType])
         .length
@@ -119,5 +142,5 @@ export const useDataStore = defineStore('data', () => {
     return { tableRows, tableTotals };
   });
 
-  return { tweetData, getTweetData, tableData }
+  return { filteredTweetData, getTweetData, tableData, updateFilters }
 })

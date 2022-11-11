@@ -5,9 +5,9 @@
     </v-app-bar>
 
     <v-main>
-      <OverviewTable v-if="store.tweetData.length > 0" />
-      <UpSet v-if="store.tweetData.length > 0" />
-      <TweetGallery v-if="store.tweetData.length > 0" />
+      <OverviewTable v-if="store.filteredTweetData.length > 0" />
+      <UpSet v-if="store.filteredTweetData.length > 0" />
+      <TweetGallery v-if="store.filteredTweetData.length > 0" />
     </v-main>
   </v-app>
 </template>
