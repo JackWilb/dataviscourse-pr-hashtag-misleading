@@ -1,36 +1,38 @@
 <template>
-    <svg :id="props.svg_id"></svg>
+    <svg :id="props.svg_id" width="120" height="30">
+        <g class="axis"></g>
+    </svg>
 </template>
 
 <script setup lang="ts">
-    import { computed, onMounted } from 'vue';
+    import { computed, onMounted, onUpdated } from 'vue';
     import { select, selectAll } from 'd3-selection';
     import { axisBottom } from 'd3-axis';
+    import { transition } from 'd3-transition';
     import { scaleLinear, ScaleLinear } from 'd3-scale';
 
     const props = defineProps<{
         svg_id: string
         total: number
+        showCounts: boolean
     }>();
 
     const margin = 15;
 
-    onMounted(() => {
+    function drawAxis() {
         let xScale: ScaleLinear<number, number>;
         xScale = scaleLinear()
-        .domain([0, props.total])
+        .domain([0, props.showCounts ? props.total : 100])
         .range([margin, 120-margin]);
+        const axis = axisBottom(xScale).ticks(3, 's');
 
-        const cellSvg = select(`#${props.svg_id}`);
+        selectAll(`#${props.svg_id} > g.axis`).transition().call(axis);
+    };
 
-        cellSvg
-        .attr('width', 120)
-        .attr('height', 30);
+    onMounted(() => { drawAxis() });
 
-        cellSvg
-        .append('g')
-        .call(axisBottom(xScale).ticks(3, 's'));
-    });
+    onUpdated(() => { drawAxis() });
+
 </script>
 
 <style>

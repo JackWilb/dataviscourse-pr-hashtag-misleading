@@ -1,37 +1,32 @@
 <template>
     <svg width=120 height=30>
-        <line 
-            :x1="margin" 
-            :x2="120-margin"
-            y1=20
-            y2=20
+        <rect
+            :x="margin"
+            y=5
+            height=20
+            :width="cx - margin"
         >
-        </line>
+        </rect>
 
         <text 
-            :x="cx" 
-            y=12 
+            :x="cx+5" 
+            y=18 
             class="dot-text"
         >
-            {{ x }}
+            {{ numericText }}
         </text>
-        
-        <circle 
-            r=5 
-            :cx="cx" 
-            cy=20 
-            :fill="props.x === 0 ? 'lightgray' : 'black'"
-        ></circle>
     </svg>
 </template>
 
 <script setup lang="ts">
     import { computed } from 'vue';
     import { scaleLinear, ScaleLinear } from 'd3-scale';
+    import { format } from 'd3-format';
 
     const props = defineProps<{
         x: number
         total: number
+        showCounts: boolean
     }>();
 
     const margin = 15;
@@ -43,15 +38,24 @@
 
     const cx = computed(() => { return xScale(props.x) });
 
+    const numericText = computed(() => { 
+        return props.showCounts ? format('d')(props.x) : format('.0%')(props.x/props.total) 
+    });
+
 </script>
 
 <style>
+rect {
+    fill: #1DA1F2;
+}
+
 line {
     stroke: lightgray;
 }
 
 text.dot-text {
-    font-size: 10px;
-    text-anchor: middle
+    text-anchor: start;
+    font-size:  13px;
+    font-weight: 800;
 }
 </style>

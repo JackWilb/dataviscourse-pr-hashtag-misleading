@@ -1,5 +1,4 @@
 <template>
-    <!--<v-table density="compact">-->
     <table id="overviewTable">
       <thead>
         <tr>
@@ -10,11 +9,18 @@
           <th>Neutral</th>
         </tr> 
         <tr>
-          <th></th>
-          <th><TableAxis svg_id="axis-support" :total="tableTotals['Tweet text support']"></TableAxis></th>
-          <th><TableAxis svg_id="axis-oppose" :total="tableTotals['Tweet text oppose']"></TableAxis></th>
-          <th><TableAxis svg_id="axis-alt" :total="tableTotals['Tweet text alt']"></TableAxis></th>
-          <th><TableAxis svg_id="axis-neutral" :total="tableTotals['Tweet text neutral']"></TableAxis></th>
+          <th>
+            <v-switch
+              v-model="model"
+              hide-details
+              inset
+              :label="`Showing ${model ? 'count' : 'percent'}`"
+            ></v-switch>
+          </th>
+          <th><TableAxis svg_id="axis-support" :total="tableTotals['Tweet text support']" :showCounts="model"></TableAxis></th>
+          <th><TableAxis svg_id="axis-oppose" :total="tableTotals['Tweet text oppose']" :showCounts="model"></TableAxis></th>
+          <th><TableAxis svg_id="axis-alt" :total="tableTotals['Tweet text alt']" :showCounts="model"></TableAxis></th>
+          <th><TableAxis svg_id="axis-neutral" :total="tableTotals['Tweet text neutral']" :showCounts="model"></TableAxis></th>
         </tr> 
       </thead>
       <tbody>
@@ -24,6 +30,7 @@
             <TableCell 
               :x="value[sentimentType]" 
               :total="tableTotals[sentimentType]"
+              :showCounts="model"
             ></TableCell>
           </td>
         </tr>
@@ -37,6 +44,7 @@ import { SentimentOptions } from '../types';
 import { select, selectAll } from 'd3-selection';
 import { axisBottom } from 'd3-axis';
 import { scaleLinear, ScaleLinear } from 'd3-scale';
+import { computed, ref } from 'vue';
 import TableCell from './TableCell.vue';
 import TableAxis from './TableAxis.vue';
 
@@ -51,11 +59,7 @@ const sentimentTypes: SentimentOptions[] = [
       'Tweet text neutral',
     ];
 
-// Create legends
-//const legendSvgs: { [key: string]: Object } = {};
-//sentimentTypes.forEach((sentimentType) => {
-//  legendSvgs[sentimentType] = 
-//});
+const model = ref(true);
 
 </script>
 
