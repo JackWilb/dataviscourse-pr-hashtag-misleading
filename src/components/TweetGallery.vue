@@ -1,5 +1,33 @@
 <template>
-  <div id="tweet-gallery">
+  <div
+    id="tweet-gallery"
+    class="mt-12 bg-grey-lighten-3"
+  >
+
+    <v-row class="px-6">
+      <v-col cols="4">
+        <v-autocomplete
+          v-model="searchSelected"
+          v-model:search="searchInput"
+          :items="searchItems"
+          label="Search by Tweet ID"
+          hide-no-data
+          variant="solo"
+        />
+      </v-col>
+
+      <v-col>
+        <v-btn
+          color="red"
+          class="mt-3"
+          @click="searchClear"
+        >
+          <v-icon class="pr-2">mdi-close-circle-outline</v-icon>
+          Clear search
+        </v-btn>
+      </v-col>
+    </v-row>
+
     <v-row class="px-6">
       <v-col
         cols="2"
@@ -8,7 +36,7 @@
       >
         <blockquote
           class="twitter-tweet"
-          width="300"
+          width="250"
         >
           <a :href="`https://twitter.com/twitter/status/${tweet.tweet_id}`"></a> 
         </blockquote>
@@ -29,6 +57,20 @@ import { useDataStore } from '../stores/data';
 
 const store = useDataStore();
 
+// Autocomplete variables
+const searchSelected = ref<string>('');
+const searchInput = ref('');
+const searchItems = computed(() => {
+  return searchInput.value.length > 3 ? 
+    store.tweetData
+      .map((tweet) => tweet.tweet_id)
+      .filter((tweet_id) => tweet_id.includes(searchInput.value))
+    : [searchSelected.value];
+});
+watch(searchSelected, () => store.updateFilters('tweetIDs', searchSelected.value))
+function searchClear() {
+  searchSelected.value = ''
+}
 // Pagination variables
 const pageNumber = ref(1);
 const numberOfTweets = computed(() => store.filteredTweetData.length);

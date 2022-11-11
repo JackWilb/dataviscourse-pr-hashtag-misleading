@@ -6,7 +6,9 @@ import { Filter, RowData, RowLabelOptions, SentimentOptions, Tweet } from '../ty
 export const useDataStore = defineStore('data', () => {
   const filters = ref<Filter>({ tweetIDs: [], clickedCategories: [] });
   function updateFilters(type: 'tweetIDs' | 'clickedCategories', value: string) {
-    if (filters.value[type].includes(value)){
+    if (value === '') {
+      filters.value[type] = []
+    } else if (filters.value[type].includes(value)){
       filters.value[type] = filters.value[type].filter((IDOrCategory) => IDOrCategory !== value)
     } else {
       filters.value[type].push(value);
@@ -142,5 +144,5 @@ export const useDataStore = defineStore('data', () => {
     return { tableRows, tableTotals };
   });
 
-  return { filteredTweetData, getTweetData, tableData, updateFilters }
+  return { filteredTweetData, getTweetData, tableData, tweetData, updateFilters }
 })
