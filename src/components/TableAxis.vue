@@ -1,5 +1,5 @@
 <template>
-    <svg :id="props.svg_id" width="120" height="30">
+    <svg :id="props.svg_id" width="150" height="30">
         <g class="axis"></g>
     </svg>
 </template>
@@ -17,13 +17,13 @@
         showCounts: boolean
     }>();
 
-    const margin = 15;
+    const margin = 25;
 
     function drawAxis() {
         let xScale: ScaleLinear<number, number>;
         xScale = scaleLinear()
         .domain([0, props.showCounts ? props.total : 100])
-        .range([margin, 120-margin]);
+        .range([margin, 150-margin]);
         const axis = axisBottom(xScale).ticks(3, 's');
 
         selectAll(`#${props.svg_id} > g.axis`).transition().call(axis);

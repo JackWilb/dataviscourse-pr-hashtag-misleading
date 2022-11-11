@@ -1,5 +1,5 @@
 <template>
-    <svg width=120 height=30>
+    <svg width=150 height=30>
         <rect
             :x="margin"
             y=5
@@ -9,8 +9,8 @@
         </rect>
 
         <text 
-            :x="cx+5" 
-            y=18 
+            :x="cx+3" 
+            y=20
             class="dot-text"
         >
             {{ numericText }}
@@ -29,12 +29,12 @@
         showCounts: boolean
     }>();
 
-    const margin = 15;
+    const margin = 25;
 
     let xScale: ScaleLinear<number, number>;
     xScale = scaleLinear()
     .domain([0, props.total])
-    .range([margin, 120-margin]);
+    .range([margin, 150-2*margin]);
 
     const cx = computed(() => { return xScale(props.x) });
 
