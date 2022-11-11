@@ -47,11 +47,12 @@ import { scaleLinear, ScaleLinear } from 'd3-scale';
 import { computed, ref } from 'vue';
 import TableCell from './TableCell.vue';
 import TableAxis from './TableAxis.vue';
+import { computed } from 'vue';
 
 // Load data
 const store = useDataStore();
-const tableRows = store.tableData.tableRows;
-const tableTotals = store.tableData.tableTotals;
+const tableRows = computed(() => store.tableData.tableRows);
+const tableTotals = computed(() => store.tableData.tableTotals);
 const sentimentTypes: SentimentOptions[] = [
       'Tweet text support',
       'Tweet text oppose',

@@ -70,3 +70,8 @@ export type SentimentOptions =
   | 'Tweet text neutral'
   | 'Tweet text support'
   | 'Tweet text alt';
+
+export interface Filter {
+  tweetIDs: string[];
+  clickedCategories: string[];
+}
