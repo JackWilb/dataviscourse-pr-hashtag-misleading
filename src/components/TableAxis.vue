@@ -26,7 +26,7 @@
         .range([margin, 150-margin]);
         const axis = axisBottom(xScale).ticks(3, 's');
 
-        selectAll(`#${props.svg_id} > g.axis`).transition().call(axis);
+        selectAll(`#${props.svg_id} > g.axis`).transition().call(axis as any);
     };
 
     onMounted(() => { drawAxis() });
