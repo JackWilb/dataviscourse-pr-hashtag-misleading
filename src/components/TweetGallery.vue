@@ -67,7 +67,10 @@ const searchItems = computed(() => {
       .filter((tweet_id) => tweet_id.includes(searchInput.value))
     : [searchSelected.value];
 });
-watch(searchSelected, () => store.updateFilters('tweetIDs', searchSelected.value))
+watch(searchSelected, () => {
+  store.updateFilters('tweetIDs', searchSelected.value)
+  pageNumber.value = 1;
+})
 function searchClear() {
   searchSelected.value = ''
 }
