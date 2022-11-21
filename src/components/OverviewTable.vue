@@ -41,10 +41,10 @@
       </thead>
       <tbody>
         <tr v-for="(value,key) in tableRows">
-          <td @click="clickHandler(key)" 
-              @mouseover="hover = key" 
+          <td @click="clickHandler(key as string)" 
+              @mouseover="hover = key as string" 
               @mouseleave="hover = ''" 
-              :class="{ hovered: (hover===key), selected: (store.getCategoryFilters().includes(key))}"
+              :class="{ hovered: (hover===key), selected: (store.getCategoryFilters().includes(key as string))}"
             >{{ key }}</td>
           <td v-for="sentimentType in sentimentTypes">
             <TableCell 
@@ -61,9 +61,6 @@
 <script setup lang="ts">
 import { useDataStore } from '../stores/data';
 import { SentimentOptions } from '../types';
-import { select, selectAll } from 'd3-selection';
-import { axisBottom } from 'd3-axis';
-import { scaleLinear, ScaleLinear } from 'd3-scale';
 import { computed, ref } from 'vue';
 import TableCell from './TableCell.vue';
 import TableAxis from './TableAxis.vue';
@@ -79,7 +76,7 @@ const sentimentTypes: SentimentOptions[] = [
       'Tweet text neutral',
     ];
 const showCounts = ref(false);
-const hover = ref('');
+const hover = ref<string>('');
 
 function clickHandler(key: string) {
   store.updateFilters("clickedCategories", key);
