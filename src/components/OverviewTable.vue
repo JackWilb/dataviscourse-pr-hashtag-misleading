@@ -3,34 +3,54 @@
       <thead>
         <tr>
           <th>Attribute</th>
-          <th>Support</th>
-          <th>Oppose</th>
-          <th>Alt</th>
-          <th>Neutral</th>
+          <th @click="clickHandler('Tweet text support')" 
+              @mouseover="hover = 'Tweet text support'" 
+              @mouseleave="hover = ''" 
+              :class="{ hovered: (hover==='Tweet text support'), selected: (store.getCategoryFilters().includes('Tweet text support'))}"
+            >Support</th>
+          <th @click="clickHandler('Tweet text oppose')" 
+              @mouseover="hover = 'Tweet text oppose'" 
+              @mouseleave="hover = ''" 
+              :class="{ hovered: (hover==='Tweet text oppose'), selected: (store.getCategoryFilters().includes('Tweet text oppose'))}"
+            >Oppose</th>
+          <th @click="clickHandler('Tweet text alt')" 
+              @mouseover="hover = 'Tweet text alt'" 
+              @mouseleave="hover = ''" 
+              :class="{ hovered: (hover==='Tweet text alt'), selected: (store.getCategoryFilters().includes('Tweet text alt'))}"
+            >Alt</th>
+          <th @click="clickHandler('Tweet text neutral')" 
+              @mouseover="hover = 'Tweet text neutral'" 
+              @mouseleave="hover = ''" 
+              :class="{ hovered: (hover==='Tweet text neutral'), selected: (store.getCategoryFilters().includes('Tweet text neutral'))}"
+            >Neutral</th>
         </tr> 
         <tr>
           <th>
             <v-switch
-              v-model="model"
+              v-model="showCounts"
               hide-details
               inset
-              :label="`Showing ${model ? 'count' : 'percent'}`"
+              :label="`Showing ${showCounts ? 'count' : 'percent'}`"
             ></v-switch>
           </th>
-          <th><TableAxis svg_id="axis-support" :total="tableTotals['Tweet text support']" :showCounts="model"></TableAxis></th>
-          <th><TableAxis svg_id="axis-oppose" :total="tableTotals['Tweet text oppose']" :showCounts="model"></TableAxis></th>
-          <th><TableAxis svg_id="axis-alt" :total="tableTotals['Tweet text alt']" :showCounts="model"></TableAxis></th>
-          <th><TableAxis svg_id="axis-neutral" :total="tableTotals['Tweet text neutral']" :showCounts="model"></TableAxis></th>
+          <th><TableAxis svg_id="axis-support" :total="tableTotals['Tweet text support']" :showCounts="showCounts"></TableAxis></th>
+          <th><TableAxis svg_id="axis-oppose" :total="tableTotals['Tweet text oppose']" :showCounts="showCounts"></TableAxis></th>
+          <th><TableAxis svg_id="axis-alt" :total="tableTotals['Tweet text alt']" :showCounts="showCounts"></TableAxis></th>
+          <th><TableAxis svg_id="axis-neutral" :total="tableTotals['Tweet text neutral']" :showCounts="showCounts"></TableAxis></th>
         </tr> 
       </thead>
       <tbody>
         <tr v-for="(value,key) in tableRows">
-          <td>{{ key }}</td>
+          <td @click="clickHandler(key)" 
+              @mouseover="hover = key" 
+              @mouseleave="hover = ''" 
+              :class="{ hovered: (hover===key), selected: (store.getCategoryFilters().includes(key))}"
+            >{{ key }}</td>
           <td v-for="sentimentType in sentimentTypes">
             <TableCell 
               :x="value[sentimentType]" 
               :total="tableTotals[sentimentType]"
-              :showCounts="model"
+              :showCounts="showCounts"
             ></TableCell>
           </td>
         </tr>
@@ -58,8 +78,12 @@ const sentimentTypes: SentimentOptions[] = [
       'Tweet text alt',
       'Tweet text neutral',
     ];
+const showCounts = ref(false);
+const hover = ref('');
 
-const model = ref(true);
+function clickHandler(key: string) {
+  store.updateFilters("clickedCategories", key);
+}
 
 </script>
 
@@ -100,6 +124,15 @@ td {
   padding-right: 5px;
   padding-left: 5px;
   color:black;
+}
+
+.hovered {
+  background-color: #F5F8FA;
+}
+
+.selected {
+  background-color: #E1E8ED;
+  font-weight: bold;
 }
 
 </style>
