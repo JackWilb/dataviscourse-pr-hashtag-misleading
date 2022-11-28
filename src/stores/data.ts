@@ -144,5 +144,12 @@ export const useDataStore = defineStore('data', () => {
     return { tableRows, tableTotals };
   });
 
-  return { filteredTweetData, getTweetData, tableData, tweetData, updateFilters }
+  const upsetData = computed(() => {
+    return filteredTweetData.value.map((tweet) => {
+      const setsForTweet = Object.keys(tweet).filter((key) => tweet[key as keyof Tweet] === true)
+      return { name: tweet.tweet_id, sets: setsForTweet};
+    })
+  });
+
+  return { filteredTweetData, getTweetData, tableData, tweetData, updateFilters, upsetData }
 })
