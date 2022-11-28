@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/d3": "^7.4.0",
+    "@upsetjs/bundle": "^1.11.0",
     "d3": "^7.6.1",
     "eslint": "^8.25.0",
     "eslint-plugin-vue": "^9.6.0",

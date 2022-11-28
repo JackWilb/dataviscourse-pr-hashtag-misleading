@@ -88,7 +88,6 @@ async function setTweetsAsMissing() {
   currentTimeout.value = setTimeout(() => {
     // Get all remaining "loading"
     const unloadedTweets = document.getElementsByClassName('unloaded');
-    console.log(unloadedTweets);
 
     if (unloadedTweets.length > 0) {
       Array.from(unloadedTweets).forEach((unloadedTweet) => {
