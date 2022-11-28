@@ -15,6 +15,10 @@ export const useDataStore = defineStore('data', () => {
     }
   }
 
+  function getCategoryFilters() {
+    return filters.value['clickedCategories'];
+  }
+
   const tweetData = ref<Tweet[]>([]);
   const filteredTweetData = computed(() => {
     return tweetData.value
@@ -151,5 +155,5 @@ export const useDataStore = defineStore('data', () => {
     })
   });
 
-  return { filteredTweetData, getTweetData, tableData, tweetData, updateFilters, upsetData }
+  return { filteredTweetData, getCategoryFilters, getTweetData, tableData, tweetData, updateFilters, upsetData }
 })
