@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { csv } from 'd3';
-import { Filter, RowData, RowLabelOptions, SentimentOptions, Tweet } from '../types';
+import { Filter, RowData, rowLabelOptions, RowLabelOptions, SentimentOptions, Tweet } from '../types';
 
 export const useDataStore = defineStore('data', () => {
   const filters = ref<Filter>({ tweetIDs: [], clickedCategories: [] });
@@ -84,28 +84,7 @@ export const useDataStore = defineStore('data', () => {
   }
 
   const tableData = computed(() => {
-    const rowLabels: RowLabelOptions[] = [
-      // Reasoning errors
-      'Cherry-picking',
-      'Setting an arbitrary threshold',
-      'Causal inference',
-      'Issues with data validity',
-      'Failure to account for statistical nuance',
-      'Misrepresentation of scientific studies',
-      'Incorrect reading of chart',
-      // Misc construction
-      'Use of annotations on chart',
-      'Source screenshot static',
-      'Source screenshot dashboard',
-      // Design violations
-      'Truncated axis',
-      'Dual axis',
-      'Value as area/volume',
-      'Inverted axis',
-      'Uneven binning',
-      'Unclear encoding',
-      'Inappropriate encoding',
-    ];
+    const rowLabels: readonly RowLabelOptions[] = rowLabelOptions;
 
     const sentimentTypes: SentimentOptions[] = [
       'Tweet text oppose',
@@ -150,7 +129,7 @@ export const useDataStore = defineStore('data', () => {
 
   const upsetData = computed(() => {
     return filteredTweetData.value.map((tweet) => {
-      const setsForTweet = Object.keys(tweet).filter((key) => tweet[key as keyof Tweet] === true)
+      const setsForTweet = rowLabelOptions.filter((key) => tweet[key as keyof Tweet] === true)
       return { name: tweet.tweet_id, sets: setsForTweet};
     })
   });

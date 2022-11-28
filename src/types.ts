@@ -43,27 +43,31 @@ export interface RowData {
   'Tweet text alt': number;
 }
 
-export type RowLabelOptions = 
+export const rowLabelOptions = [
   // Reasoning errors
-  'Cherry-picking'
-  | 'Setting an arbitrary threshold'
-  | 'Causal inference'
-  | 'Issues with data validity'
-  | 'Failure to account for statistical nuance'
-  | 'Misrepresentation of scientific studies'
-  | 'Incorrect reading of chart'
-  // Misc construction
-  | 'Use of annotations on chart'
-  | 'Source screenshot static'
-  | 'Source screenshot dashboard'
-  // Design violations
-  | 'Truncated axis'
-  | 'Dual axis' 
-  | 'Value as area/volume'
-  | 'Inverted axis'
-  | 'Uneven binning'
-  | 'Unclear encoding'
-  | 'Inappropriate encoding';
+  'Cherry-picking',
+  'Setting an arbitrary threshold',
+  'Causal inference',
+  'Issues with data validity',
+  'Failure to account for statistical nuance',
+  'Misrepresentation of scientific studies',
+  'Incorrect reading of chart',
+
+  // Misc construction,
+  'Use of annotations on chart',
+  'Source screenshot static',
+  'Source screenshot dashboard',
+
+  // Design violations,
+  'Truncated axis',
+  'Dual axis' ,
+  'Value as area/volume',
+  'Inverted axis',
+  'Uneven binning',
+  'Unclear encoding',
+  'Inappropriate encoding'
+] as const;
+export type RowLabelOptions = typeof rowLabelOptions[number];
 
 export type SentimentOptions = 
   'Tweet text oppose'
