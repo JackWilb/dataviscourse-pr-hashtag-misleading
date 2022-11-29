@@ -2,6 +2,14 @@
   <v-app>
     <v-app-bar color="blue">
       <v-app-bar-title>Hashtag Misleading</v-app-bar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn
+        icon
+        @click="openGithub"
+      >
+        <v-icon>mdi-github</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -20,6 +28,10 @@ import { useDataStore } from './stores/data';
 
 const store = useDataStore();
 store.getTweetData();
+
+function openGithub() {
+  window.open('https://github.com/JackWilb/dataviscourse-pr-hashtag-misleading/');
+}
 
 </script>
 
