@@ -141,3 +141,10 @@ a[disabled], a[disabled]:hover {
   color: black;
 }
 </style>
+
+<style>
+.twitter-tweet-rendered {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
