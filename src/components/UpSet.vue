@@ -27,7 +27,7 @@ function onHover(set: any) {
 
 function rerender() {
   const upsetElement = document.getElementById('upset');
-  const props = { sets: sets.value, combinations: combinations.value, width: 1500, height: 800, selection, onHover };
+  const props = { sets: sets.value, combinations: combinations.value, width: 1000, height: 800, selection, onHover };
 
   if (upsetElement !== null) {
     renderUpSet(upsetElement, props);

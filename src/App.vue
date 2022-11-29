@@ -14,8 +14,16 @@
     </v-app-bar>
 
     <v-main>
-      <OverviewTable v-if="store.filteredTweetData.length > 0" />
-      <UpSet v-if="store.filteredTweetData.length > 0" />
+      <v-row>
+        <v-col>
+        <OverviewTable v-if="store.filteredTweetData.length > 0" class="mx-auto"/>
+        </v-col>
+        
+        <v-col>
+        <UpSet v-if="store.filteredTweetData.length > 0" class="mx-auto"/>
+        </v-col>
+      </v-row>
+
       <TweetGallery v-if="store.filteredTweetData.length > 0" />
     </v-main>
   </v-app>
