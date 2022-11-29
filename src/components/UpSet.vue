@@ -26,9 +26,19 @@ function onHover(set: any) {
 }
 
 const upsetWidth = 900;
+const widthRatios: [number, number] = [0.15, 0.3];
 function rerender() {
   const upsetElement = document.getElementById('upset');
-  const props = { sets: sets.value, combinations: combinations.value, width: upsetWidth, height: 800, selection, onHover };
+  const props = { 
+    sets: sets.value, 
+    combinations: combinations.value, 
+    width: upsetWidth, 
+    height: 800, 
+    selection, 
+    onHover, 
+    widthRatios, 
+    fontSizes: { setLabel: '10pt' } 
+  };
 
   if (upsetElement !== null) {
     renderUpSet(upsetElement, props);
