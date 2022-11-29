@@ -30,7 +30,7 @@
 
     <v-row class="px-6">
       <v-col
-        cols="2"
+        :cols="numberOfCols"
         v-for="tweet in store.filteredTweetData.slice(startingTweetIndex, endingTweetIndex)"
         :key="tweet.tweet_id"
       >
@@ -78,6 +78,7 @@ function searchClear() {
 const pageNumber = ref(1);
 const numberOfTweets = computed(() => store.filteredTweetData.length);
 const TWEETS_PER_PAGE = 12;
+const numberOfCols = computed(() => Math.ceil(12 / (pageWidth.value / 275)))
 const startingTweetIndex = computed(() => (pageNumber.value - 1) * TWEETS_PER_PAGE)
 const endingTweetIndex = computed(() => startingTweetIndex.value + TWEETS_PER_PAGE);
 
@@ -107,7 +108,16 @@ async function setTweetsAsMissing() {
     }
   }, numberOfSecondsToWait);
 }
+
+const pageWidth = ref(window.innerWidth);
+function onWidthChange() {
+  pageWidth.value = window.innerWidth;
+}
+
 onMounted(() => {
+  // Add listener for resize to track current width
+  window.addEventListener('resize', onWidthChange)
+
   clearTimeout(currentTimeout.value);
   twttr.widgets.load();
   setTweetsAsMissing();
