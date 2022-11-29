@@ -3,14 +3,14 @@
     <v-app-bar color="blue">
       <v-app-bar-title>Hashtag Misleading</v-app-bar-title>
       
-      <template v-slot:append>
+      <!-- <template v-slot:append>
         <v-btn
           icon
           @click="openGithub"
         >
           <v-icon>mdi-github</v-icon>
         </v-btn>
-      </template>
+      </template> -->
     </v-app-bar>
 
     <v-main>
