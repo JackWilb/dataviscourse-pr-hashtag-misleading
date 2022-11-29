@@ -17,7 +17,7 @@
         showCounts: boolean
     }>();
 
-    const margin = 25;
+    const margin = 30;
 
     function drawAxis() {
         let xScale: ScaleLinear<number, number>;

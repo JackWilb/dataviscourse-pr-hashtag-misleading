@@ -4,14 +4,15 @@
             :x="margin"
             y=5
             height=20
-            :width="cx - margin"
+            :width="(x===0) ? 0 : (cx - margin)"
         >
         </rect>
 
         <text 
-            :x="cx+3" 
+            :x="cx+2" 
             y=20
-            class="dot-text"
+            id="dot-text"
+            :class="(x===0) ? 'zero' : 'nonzero'"
         >
             {{ numericText }}
         </text>
@@ -19,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-    import { computed } from 'vue';
+    import { computed, onMounted, onUpdated } from 'vue';
     import { scaleLinear, ScaleLinear } from 'd3-scale';
     import { format } from 'd3-format';
 
@@ -29,7 +30,7 @@
         showCounts: boolean
     }>();
 
-    const margin = 25;
+    const margin = 30;
 
     let xScale: ScaleLinear<number, number>;
     xScale = scaleLinear()
@@ -39,7 +40,7 @@
     const cx = computed(() => { return xScale(props.x) });
 
     const numericText = computed(() => { 
-        return props.showCounts ? format('d')(props.x) : format('.0%')(props.x/props.total) 
+        return props.showCounts ? format('d')(props.x) : format('.0%')(props.x === 0 ? 0 : props.x/props.total);
     });
 
 </script>
@@ -53,9 +54,19 @@ line {
     stroke: lightgray;
 }
 
-text.dot-text {
+text#dot-text {
     text-anchor: start;
-    font-size:  13px;
+    font-size:  12px;
     font-weight: 800;
+}
+
+text.nonzero {
+    fill: black;
+}
+
+text.zero {
+    fill: lightgray;
+    font-style: italic;
+    font-weight: 100;
 }
 </style>

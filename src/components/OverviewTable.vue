@@ -39,22 +39,50 @@
           <th><TableAxis svg_id="axis-neutral" :total="tableTotals['Tweet text neutral']" :showCounts="showCounts"></TableAxis></th>
         </tr> 
       </thead>
-      <tbody>
-        <tr v-for="(value,key) in tableRows">
-          <td @click="clickHandler(key as string)" 
+
+        <tbody v-for="(value,key,index) in tableRows">
+
+          <tr v-if="index===0">
+            <td class="categoryHeader"> Reasoning errors: </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr v-if="index===7">
+            <td class="categoryHeader"> Construction attributes: </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr v-if="index===10">
+            <td class="categoryHeader"> Design violations: </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td
+              @click="clickHandler(key as string)" 
               @mouseover="hover = key as string" 
               @mouseleave="hover = ''" 
               :class="{ hovered: (hover===key), selected: (store.getCategoryFilters().includes(key as string))}"
-            >{{ key }}</td>
-          <td v-for="sentimentType in sentimentTypes">
-            <TableCell 
-              :x="value[sentimentType]" 
-              :total="tableTotals[sentimentType]"
-              :showCounts="showCounts"
-            ></TableCell>
-          </td>
-        </tr>
-      </tbody>
+            >
+              {{ key }}
+            </td>
+
+            <td v-for="sentimentType in sentimentTypes">
+              <TableCell 
+                :x="value[sentimentType]" 
+                :total="tableTotals[sentimentType]"
+                :showCounts="showCounts"
+                :key="tableTotals[sentimentType]"
+              ></TableCell>
+            </td>
+          </tr>
+
+        </tbody>
+
     </table>
 </template>
 
@@ -91,8 +119,9 @@ table#overviewTable {
   font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
   border: 1px solid lightgray;
   border-radius: 15px;
-  padding: 15px;
-  margin: 25px 25px;
+  padding: 10px;
+  margin: 0px;
+  width: 900px;
 }
 
 th {
@@ -112,15 +141,21 @@ th:first-of-type {
 
 td:first-of-type {
   text-align: left;
+  padding-right: 0px;
+  padding-left: 10px;
 }
 
 td {
   text-align: center;
   padding-top: 0px;
   padding-bottom: 0px;
-  padding-right: 5px;
-  padding-left: 5px;
   color:black;
+}
+
+td.categoryHeader {
+  font-weight: bold;
+  font-style: italic;
+  padding-left: 0px;
 }
 
 .hovered {
