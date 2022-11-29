@@ -1,5 +1,5 @@
 <template>
-  <div id="upset"></div>
+  <div id="upset" :style="`width: ${upsetWidth}px`"></div>
 </template>
 
 <script setup lang="ts">
@@ -25,9 +25,10 @@ function onHover(set: any) {
   rerender();
 }
 
+const upsetWidth = 900;
 function rerender() {
   const upsetElement = document.getElementById('upset');
-  const props = { sets: sets.value, combinations: combinations.value, width: 1000, height: 800, selection, onHover };
+  const props = { sets: sets.value, combinations: combinations.value, width: upsetWidth, height: 800, selection, onHover };
 
   if (upsetElement !== null) {
     renderUpSet(upsetElement, props);
