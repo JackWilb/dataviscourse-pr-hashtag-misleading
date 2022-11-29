@@ -14,7 +14,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-row>
+      <v-row class="mt-2">
         <v-col>
         <OverviewTable v-if="store.filteredTweetData.length > 0" class="mx-auto"/>
         </v-col>
