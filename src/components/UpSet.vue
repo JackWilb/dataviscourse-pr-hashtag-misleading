@@ -37,7 +37,9 @@ function rerender() {
     selection, 
     onHover, 
     widthRatios, 
-    fontSizes: { setLabel: '10pt' } 
+    fontSizes: { setLabel: '10pt' },
+    color: '#333333',
+    selectionColor: '#1DA1F2',
   };
 
   if (upsetElement !== null) {
