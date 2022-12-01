@@ -40,6 +40,19 @@ At the milestone point of our project, our design is still evolving. For the ove
 
 ![Image of the first overview table design.](./images/table_dot.png)
 
+As we developed our design ideas some more after the milestone, we decided to switch to bar charts for our overview table. This is a little more clear than using the dot plots that we had before. At this point, we also had filtering by clicking working and the ability to switch from raw counts to percentages.
+
+![Image of intermediate table design](./images/table_with_problems.png)
+
+We also had our upset plot working at this time. We used the javascript implementation of this library, which let us build the chart quickly. Since our vue code was well thought out, the filtering that we had in the overview table worked immediately with the upset view. There were still some issues with the labels being cut off, and the overall design of the tool was ugly with each visualization on separate lines.
+
+![Image of intermediate upset design](./images/upset_with_problems.png)
+
+Finally, we had an implementation of the tweet gallery working at this point. The screenshot below shows one of the problems with the gallery, which is that it wouldn't wrap tweets as the page width shrank. That said, the filtering worked very well out of the box, given our work architecting our application to support the filtering.
+
+![Image of intermediate tweet gallery design](./images/gallery_with_problems.png)
+
+
 # Implementation
 
 
