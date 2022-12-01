@@ -55,5 +55,22 @@ Finally, we had an implementation of the tweet gallery working at this point. Th
 
 # Implementation
 
+Our final implementation is an iteration and refinement from our other designs. We fixed some bugs, added some polish, and made our app more consistent. For completeness, the technology stack that we're using is vue 3, with vuetify 3 beta, pinia state management, upsetjs, and the twitter javascript helper package. Here is a look at the application that shows all views.
+
+![Image of final app design](./images/final_normal.png)
+
+We also improved the app so that it works well in a responsive environment (with a minimum width of 900px, meaning it works okay on an ipad in landscape, but nothing smaller).
+
+![Image of final responsive app design](./images/final_responsive.png)
+
+The interactions inside of our app, selecting in the table, hovering in the upset plot, and searching in the gallery, let the user drill down into the data and gain insights. You can see in the following screenshot that we have filtered using the click interaction in the table; we selected "causal inference". We then hovered over the intersection of "source screenshot static" and "cherry-picking". The tweet gallery is responsive to the table filtering and shows only tweets with "causal inference".
+
+![Image of final interactions](./images/final_interaction.png)
 
 # Evaluation
+
+Our tool has helped us answer the questions that we asked in our proposal. It helps us filter down to the tweets for a certain attribute or sets of attributes, count the occurrences of the attributes, and find which sets co-occur with a given attribute. 
+
+We believe that this visualization tool works very well, and will even support Max's paper revision. We clearly believe that the tool is of high quality and will allow users to explore the data used to draw conclusions in the paper.
+
+We could improve the tool by allowing different interactions in the upset plot, such as clicking to filter there. We could also improve the tool by allowing a list of tweets and other filters to be passed in as a query string argument, so that the tool could be loaded in a specific state. We use this feature to link from Max's paper to a specific state in the tool, and we may explore this before the revision is submitted.
