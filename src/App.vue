@@ -16,15 +16,15 @@
     <v-main>
       <v-row class="mt-2">
         <v-col>
-        <OverviewTable v-if="store.filteredTweetData.length > 0" class="mx-auto"/>
+        <OverviewTable v-if="store.tweetData.length > 0" class="mx-auto"/>
         </v-col>
         
         <v-col>
-        <UpSet v-if="store.filteredTweetData.length > 0" class="mx-auto"/>
+        <UpSet v-if="store.tweetData.length > 0" class="mx-auto"/>
         </v-col>
       </v-row>
 
-      <TweetGallery v-if="store.filteredTweetData.length > 0" />
+      <TweetGallery v-if="store.tweetData.length > 0" />
     </v-main>
   </v-app>
 </template>
