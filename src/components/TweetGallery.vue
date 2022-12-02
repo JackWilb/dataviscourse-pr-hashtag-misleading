@@ -45,7 +45,7 @@
 
     <v-pagination
       v-model="pageNumber"
-      :length="numberOfTweets / TWEETS_PER_PAGE"
+      :length="Math.ceil(numberOfTweets / TWEETS_PER_PAGE)"
       class="mb-12"
     ></v-pagination>
   </div>
