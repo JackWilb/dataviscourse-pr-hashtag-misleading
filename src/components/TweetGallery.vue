@@ -31,7 +31,7 @@
     <v-row class="px-6">
       <v-col
         :cols="numberOfCols"
-        v-for="tweet in store.filteredTweetData.slice(startingTweetIndex, endingTweetIndex)"
+        v-for="tweet in filteredTweetData.slice(startingTweetIndex, endingTweetIndex)"
         :key="tweet.tweet_id"
       >
         <blockquote
@@ -56,6 +56,10 @@ import { computed, onMounted, onUpdated, ref, watch } from 'vue';
 import { useDataStore } from '../stores/data';
 
 const store = useDataStore();
+const filteredTweetData = computed(() => store.filteredTweetData)
+watch(filteredTweetData, () => {
+  pageNumber.value = 1
+});
 
 // Autocomplete variables
 const searchSelected = ref<string>('');
@@ -69,14 +73,14 @@ const searchItems = computed(() => {
 });
 watch(searchSelected, () => {
   store.updateFilters('tweetIDs', searchSelected.value)
-  pageNumber.value = 1;
 })
 function searchClear() {
   searchSelected.value = ''
 }
+
 // Pagination variables
 const pageNumber = ref(1);
-const numberOfTweets = computed(() => store.filteredTweetData.length);
+const numberOfTweets = computed(() => filteredTweetData.value.length);
 const TWEETS_PER_PAGE = 12;
 const numberOfCols = computed(() => Math.ceil(12 / (pageWidth.value / 275)))
 const startingTweetIndex = computed(() => (pageNumber.value - 1) * TWEETS_PER_PAGE)
