@@ -4,6 +4,8 @@
 
 Through this codebase and it's accompanying website, https://hashtag-misleading.netlify.app/, we visualize tweets with COVID-19 charts in them.
 
+Please see our project video at https://www.youtube.com/watch?v=D55z97ewdBg.
+
 ### For Developers
 
 To install the app and its dependencies, clone the repo and run:
